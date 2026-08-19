@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Template - @jaoriche</title>
+    <!-- นำเข้าฟอนต์ Kanit และ Pattaya -->
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Pattaya&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Kanit', sans-serif;
+        }
+
+        body {
+            background-color: #ffd6e7;
+            background-image: repeating-linear-gradient(
+                90deg, #ffd6e7, #ffd6e7 15px, #ffcae2 15px, #ffcae2 30px
+            );
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 10px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ของตกแต่งดุ๊กดิ๊กฉากหลัง 🎧🩷🎀🍥 */
+        .decoration {
+            position: fixed;
+            font-size: 28px;
+            pointer-events: none;
+            z-index: 0;
+            user-select: none;
+            animation: floatWiggle 3.5s ease-in-out infinite alternate;
+        }
+
+        .deco-1 { top: 8%; left: 6%; animation-delay: 0s; }
+        .deco-2 { top: 12%; right: 6%; animation-delay: 0.8s; }
+        .deco-3 { bottom: 15%; left: 5%; animation-delay: 1.5s; }
+        .deco-4 { bottom: 10%; right: 7%; animation-delay: 2.2s; }
+        .deco-5 { top: 45%; left: 3%; animation-delay: 1.1s; }
+        .deco-6 { top: 50%; right: 4%; animation-delay: 2.7s; }
+
+        @keyframes floatWiggle {
+            0% { transform: translateY(0px) rotate(-8deg) scale(1); }
+            50% { transform: translateY(-12px) rotate(8deg) scale(1.1); }
+            100% { transform: translateY(0px) rotate(-8deg) scale(1); }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-title {
+            font-family: 'Pattaya', sans-serif;
+            font-size: 26px;
+            font-weight: 400;
+            color: #4b3d3d;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        /* การ์ดรูปภาพ (เปลี่ยนปุ่มเป็นไอคอนที่จะแสดงเมื่อกดหรือ Hover ที่การ์ด) */
+        .image-template-box {
+            width: 100%;
+            height: 220px;
+            background-color: #ffffff;
+            border: 4px dashed #4a3838;
+            border-radius: 28px;
+            box-shadow: inset 0 0 0 4px #ff8cb6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .image-template-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: filter 0.3s ease;
+        }
+
+        .image-template-box:hover img {
+            filter: brightness(0.85);
+        }
+
+        .btn-edit-banner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.7);
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 2px dashed #ff8cb6;
+            color: #4a3838;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .image-template-box:hover .btn-edit-banner,
+        .image-template-box:active .btn-edit-banner {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            pointer-events: auto;
+        }
+
+        .btn-edit-banner:hover {
+            background-color: #ff8cb6;
+            color: #fff;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        /* การ์ดรายละเอียด */
+        .details-card {
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 25px;
+            padding: 20px 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-text-header {
+            font-size: 16px;
+            font-weight: 600;
+            color: #4b3d3d;
+            margin-bottom: 6px;
+        }
+
+        .card-subtext {
+            font-size: 13px;
+            color: #a57a80;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .dashed-divider {
+            border: none;
+            border-top: 2px dashed #f0c2d4;
+            margin: 10px 0 18px 0;
+        }
+
+        /* กล่องให้คะแนนดาว */
+        .rating-box {
+            background-color: #ffe8f2;
+            border-radius: 35px;
+            padding: 20px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 120px;
+        }
+
+        .rating-title {
+            font-size: 13px;
+            color: #665257;
+        }
+
+        .stars-container {
+            display: flex;
+            gap: 6px;
+            margin: 4px 0;
+        }
+
+        .star {
+            font-size: 32px;
+            color: #ffffff;
+            -webkit-text-stroke: 1.5px #ff94ba;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .star:hover, .star.active {
+            color: #ff94ba;
+        }
+
+        .btn-click-here {
+            background-color: #4a3e3e;
+            color: #ffffff;
+            border: none;
+            padding: 8px 50px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 4px;
+        }
+
+        .thank-you-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .check-circle {
+            width: 52px;
+            height: 52px;
+            background-color: #9a7272;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .thank-you-text {
+            font-size: 16px;
+            font-weight: 500;
+            color: #4a3838;
+        }
+
+        .footer-summary {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 5px;
+            padding: 0 5px;
+        }
+
+        .footer-left {
+            font-size: 13px;
+            color: #4a3e3e;
+            font-weight: 500;
+        }
+
+        .review-badge {
+            background-color: #ffb8d2;
+            color: #ffffff;
+            padding: 4px 14px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* รายการรีวิวแบบเลื่อนซ้าย-ขวา */
+        .reviews-list {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 10px 5px 15px 5px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .reviews-list::-webkit-scrollbar {
+            height: 6px;
+        }
+        .reviews-list::-webkit-scrollbar-track {
+            background: #ffd0e2;
+            border-radius: 10px;
+        }
+        .reviews-list::-webkit-scrollbar-thumb {
+            background: #ff8cb6;
+            border-radius: 10px;
+        }
+
+        /* การ์ดรีวิวขนาดเล็กจากลูกค้า */
+        .review-card-item {
+            min-width: 280px;
+            max-width: 280px;
+            background-color: #ffffff;
+            border: 3px dashed #4a3838;
+            border-radius: 22px;
+            padding: 12px 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            animation: slideUp 0.4s ease-out;
+            position: relative;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .btn-delete-card {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            background: #ffccd8;
+            color: #fff;
+            border: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 11px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .btn-delete-card:hover { background: #ff8cb6; }
+
+        .review-card-stars {
+            color: #ffa9d1;
+            font-size: 20px;
+            letter-spacing: 1.5px;
+            line-height: 1;
+        }
+
+        .review-card-job {
+            font-size: 15px;
+            font-weight: 600;
+            color: #333333;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .review-card-impression {
+            font-size: 12.5px;
+            color: #8c7b7e;
+            line-height: 1.3;
+            margin-bottom: 2px;
+            word-break: break-word;
+        }
+
+        .review-card-divider {
+            border: none;
+            border-top: 1.5px dashed #fcdce8;
+            margin: 2px 0 4px 0;
+        }
+
+        .review-card-user {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .review-user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .review-user-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: #ffe8f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            flex-shrink: 0;
+            border: 1px solid #ffd0e2;
+        }
+
+        .review-user-meta {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 1.2;
+        }
+
+        .review-username {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        .review-time {
+            font-size: 11.5px;
+            color: #ffa9d1;
+            font-weight: 400;
+            margin-top: 1px;
+        }
+
+        /* ปุ่มกดหัวใจ Real-time */
+        .like-btn-container {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background-color: #fff0f5;
+            border: 1px solid #ffccd8;
+            padding: 4px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .like-btn-container:hover {
+            background-color: #ffe4ee;
+            transform: scale(1.05);
+        }
+
+        .like-btn-container:active {
+            transform: scale(0.95);
+        }
+
+        .like-icon {
+            font-size: 14px;
+            color: #ff5c8d;
+        }
+
+        .like-count {
+            font-size: 12px;
+            font-weight: 600;
+            color: #4a3e3e;
+        }
+
+        /* Modal Pop-up */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 15px;
+        }
+
+        .modal-card {
+            width: 100%;
+            max-width: 380px;
+            background-color: #ffffff;
+            border-radius: 35px;
+            padding: 25px 22px;
+            position: relative;
+        }
+
+        .modal-title {
+            text-align: center;
+            font-size: 26px;
+            font-weight: 600;
+            color: #4a3838;
+            margin-bottom: 12px;
+        }
+
+        .modal-dashed-divider {
+            border: none;
+            border-top: 2px dashed #fcd2e1;
+            margin-bottom: 20px;
+        }
+
+        .form-group { margin-bottom: 16px; }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #4a3838;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .form-label::before { 
+            content: "🩷"; 
+            font-size: 14px; 
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            border: 1.5px solid #ffd0e2;
+            border-radius: 20px;
+            padding: 10px 16px;
+            font-size: 13.5px;
+            color: #555;
+            outline: none;
+            background-color: #ffffff;
+        }
+
+        .form-input::placeholder, .form-textarea::placeholder {
+            color: #d1b5be;
+        }
+
+        .form-textarea { height: 100px; resize: none; }
+
+        .profile-upload-box {
+            width: 100px;
+            height: 100px;
+            border: 1.5px solid #ffd0e2;
+            border-radius: 22px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            background-color: #fff;
+        }
+
+        .profile-upload-box input[type="file"] { display: none; }
+        .profile-preview-img { width: 100%; height: 100%; object-fit: cover; display: none; }
+
+        .btn-submit-review {
+            width: 100%;
+            background-color: #ff9ec6;
+            color: #ffffff;
+            border: none;
+            padding: 12px 0;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-submit-review:hover {
+            background-color: #ff85b6;
+        }
+
+        .btn-close-modal {
+            position: absolute;
+            top: 18px; right: 22px;
+            font-size: 20px;
+            background: none;
+            border: none;
+            color: #aaa;
+            cursor: pointer;
+        }
+
+        .admin-modal-card {
+            width: 100%;
+            max-width: 360px;
+            background-color: #ffffff;
+            border-radius: 30px;
+            padding: 30px 20px 25px 20px;
+            position: relative;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .admin-modal-title {
+            font-size: 15px;
+            font-weight: 500;
+            color: #555555;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .admin-modal-title::before { content: "💗"; font-size: 14px; }
+
+        .admin-pass-input {
+            width: 100%;
+            border: 1.5px solid #ffccd8;
+            border-radius: 25px;
+            padding: 12px 20px;
+            font-size: 14px;
+            color: #666;
+            outline: none;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .admin-pass-input::placeholder { color: #cccccc; }
+
+        .btn-admin-submit {
+            width: 100%;
+            background-color: #ff9bc5;
+            color: #ffffff;
+            border: none;
+            padding: 10px 0;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(255, 155, 197, 0.4);
+            transition: transform 0.1s;
+        }
+
+        .btn-admin-submit:active { transform: scale(0.98); }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ของตกแต่งลอยดุ๊กดิ๊ก 🎧🩷🎀🍥 -->
+    <div class="decoration deco-1">🎧</div>
+    <div class="decoration deco-2">🎀</div>
+    <div class="decoration deco-3">🍥</div>
+    <div class="decoration deco-4">🩷</div>
+    <div class="decoration deco-5">🎀</div>
+    <div class="decoration deco-6">🎧</div>
+
+    <div class="container">
+        <div class="header-title">Credit @jaoriche</div>
+
+        <div class="image-template-box" onclick="openBannerModal()">
+            <img id="previewImage" src="6bfdb5850f53df6ba061aba6c0091085.gif" alt="Review Image">
+            <button class="btn-edit-banner" onclick="event.stopPropagation(); openBannerModal();" title="เปลี่ยนรูปภาพ">📷</button>
+        </div>
+
+        <div class="details-card">
+            <div class="card-text-header">🩷 . 𐔌 . @jaoriche愛 ♡՞𓈒ׅ𐤟ᚆֺ𐤟𓈒՞ა : ఒ 🎧</div>
+            <p class="card-subtext">
+                𓏵 เค้ารบกวนคนน่ารักกด ⭐ ด้านล่าง<br>
+                🎀 เพื่อรีวิวการใช้บริการของร้านเจ้าเลิฟสูดิโอ ♡
+            </p>
+            <hr class="dashed-divider">
+
+            <div class="rating-box" id="ratingBox">
+                <span class="rating-title">เลือกคะแนนการบริการจาก 1 ถึง 5</span>
+                <div class="stars-container">
+                    <span class="star" onclick="setRating(1)">★</span>
+                    <span class="star" onclick="setRating(2)">★</span>
+                    <span class="star" onclick="setRating(3)">★</span>
+                    <span class="star" onclick="setRating(4)">★</span>
+                    <span class="star" onclick="setRating(5)">★</span>
+                </div>
+                <button class="btn-click-here" onclick="openModal()">click here</button>
+            </div>
+        </div>
+
+        <div class="footer-summary">
+            <div class="footer-left">💬 รีวิวการใช้บริการจากลูกค้าทั้งหมด</div>
+            <div class="review-badge">🖤 จำนวนรีวิว : <span id="reviewCount">0</span> คน 🎀</div>
+        </div>
+
+        <!-- รายการรีวิวแบบเลื่อนซ้าย-ขวา -->
+        <div class="reviews-list" id="reviewsList"></div>
+  </div>
+      <!-- Modal Pop-up เขียนรีวิว -->
+    <div class="modal-overlay" id="reviewModal">
+        <div class="modal-card">
+            <button class="btn-close-modal" onclick="closeModal()">✕</button>
+            <div class="modal-title">รีวิวการใช้บริการ</div>
+            <hr class="modal-dashed-divider">
+
+            <div class="form-group">
+                <div class="form-label">ประเภทงานที่สั่ง</div>
+                <input type="text" id="jobTypeInput" class="form-input" placeholder="เช่น สั่งทำชีตเช็คคิวงาน">
+            </div>
+
+            <div class="form-group">
+                <div class="form-label">ความประทับใจที่มีต่อร้าน</div>
+                <textarea id="impressionInput" class="form-textarea" placeholder="เช่น แม่ค้าน่ารักมากเลยค้าบ ไอเลิฟเยย"></textarea>
+            </div>
+
+            <div class="form-group">
+                <div class="form-label">ชื่อยูสเซอร์คนน่ารัก</div>
+                <input type="text" id="usernameInput" class="form-input" placeholder="ex. unknown 🍥">
+            </div>
+
+            <div class="form-group">
+                <div class="form-label">รูปโปรไฟล์คนน่ารัก</div>
+                <div class="profile-upload-box" onclick="document.getElementById('profileFileInput').click()">
+                    <svg id="profilePlaceholder" style="width:38px;height:38px;opacity:0.25;" viewBox="0 0 24 24" fill="#ff8cb6">
+                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-1.96-2.36L6.5 17h11l-3.54-4.71z"/>
+                    </svg>
+                    <img id="profilePreview" class="profile-preview-img" src="" alt="Profile Preview">
+                    <input type="file" id="profileFileInput" accept="image/*" onchange="previewProfileImage(event)">
+                </div>
+            </div>
+
+            <hr class="modal-dashed-divider" style="margin-top: 20px; margin-bottom: 18px;">
+            <button class="btn-submit-review" onclick="submitFinalReview()">ส่งรีวิว</button>
+        </div>
+    </div>
+
+    <!-- Modal Pop-up เปลี่ยนรูปภาพการ์ด (รองรับ Google Drive Real-time) -->
+    <div class="modal-overlay" id="bannerModal">
+        <div class="modal-card">
+            <button class="btn-close-modal" onclick="closeBannerModal()">✕</button>
+            <div class="modal-title" style="font-size: 22px;">ตั้งค่ารูปภาพการ์ด</div>
+            <hr class="modal-dashed-divider">
+
+            <div class="form-group">
+                <div class="form-label">วางลิงก์รูปภาพ หรือ ลิงก์ Google Drive</div>
+                <input type="text" id="bannerUrlInput" class="form-input" placeholder="https://drive.google.com/file/d/...">
+            </div>
+
+            <button class="btn-submit-review" onclick="saveBannerUrl()">บันทึกรูปภาพ</button>
+        </div>
+    </div>
+
+    <!-- Modal Pop-up ลบรีวิวสำหรับ Admin -->
+    <div class="modal-overlay" id="adminDeleteModal">
+        <div class="admin-modal-card">
+            <button class="btn-close-modal" onclick="closeAdminModal()">✕</button>
+            <div class="admin-modal-title">รหัสลบรีวิวสำหรับแอดมินเท่านั้น</div>
+            <input type="password" id="adminPasswordInput" class="admin-pass-input" placeholder="โปรดใส่รหัสสำหรับแอดมิน">
+            <button class="btn-admin-submit" onclick="confirmDeleteReview()">click here</button>
+        </div>
+    </div>
+
+    <!-- นำเข้า JavaScript การทำงาน Real-time และกดหัวใจ -->
+    <script>
+        const FIREBASE_BASE_URL = "https://test-009-5419d-default-rtdb.firebaseio.com";
+        const FIREBASE_URL = `${FIREBASE_BASE_URL}/reviews`;
+        const BANNER_URL_ENDPOINT = `${FIREBASE_BASE_URL}/bannerUrl.json`;
+
+        let selectedRating = 0;
+        let totalReviews = 0;
+        let uploadedProfileSrc = "";
+        let targetCardToDelete = null;
+        let targetKeyToDelete = null;
+
+        // โหลดข้อมูลแบบ Real-time โดยใช้ Server-Sent Events (SSE) ของ Firebase
+        window.addEventListener('DOMContentLoaded', () => {
+            listenToRealtimeReviews();
+            listenToRealtimeBanner();
+        });
+
+        // แปลงลิงก์ Google Drive ให้เป็น Direct Link อัตโนมัติ
+        function convertDriveUrl(url) {
+            if (!url) return '';
+            const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/id=([a-zA-Z0-9_-]+)/);
+            if (match && match[1]) {
+                return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+            }
+            return url;
+        }
+
+        function listenToRealtimeBanner() {
+            const bannerSource = new EventSource(BANNER_URL_ENDPOINT);
+            bannerSource.onmessage = function(event) {
+                const url = JSON.parse(event.data);
+                if (url) {
+                    document.getElementById('previewImage').src = convertDriveUrl(url);
+                }
+            };
+
+            fetch(BANNER_URL_ENDPOINT)
+                .then(res => res.json())
+                .then(url => {
+                    if (url) {
+                        document.getElementById('previewImage').src = convertDriveUrl(url);
+                    }
+                })
+                .catch(err => console.error("Error fetching banner:", err));
+        }
+
+        function openBannerModal() {
+            document.getElementById('bannerModal').style.display = 'flex';
+        }
+
+        function closeBannerModal() {
+            document.getElementById('bannerModal').style.display = 'none';
+        }
+
+        function saveBannerUrl() {
+            const rawUrl = document.getElementById('bannerUrlInput').value.trim();
+            if (!rawUrl) {
+                alert('กรุณาวางลิงก์รูปภาพหรือลิงก์ Google Drive น้า ✨');
+                return;
+            }
+
+            const convertedUrl = convertDriveUrl(rawUrl);
+
+            fetch(BANNER_URL_ENDPOINT, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(convertedUrl)
+            })
+            .then(() => {
+                document.getElementById('previewImage').src = convertedUrl;
+                closeBannerModal();
+                document.getElementById('bannerUrlInput').value = '';
+            })
+            .catch(err => console.error("Error saving banner URL:", err));
+        }
+
+        function listenToRealtimeReviews() {
+            const eventSource = new EventSource(`${FIREBASE_URL}.json`);
+            
+            eventSource.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                if (data && data.data) {
+                    renderAllReviews(data.data);
+                } else if (event.data === 'null' || (data && data.data === null)) {
+                    document.getElementById('reviewsList').innerHTML = '';
+                    document.getElementById('reviewCount').innerText = 0;
+                }
+            };
+
+            // Fallback การดึงข้อมูลเริ่มต้น
+            fetchReviews();
+        }
+
+        function fetchReviews() {
+            fetch(`${FIREBASE_URL}.json`)
+                .then(res => res.json())
+                .then(data => {
+                    renderAllReviews(data);
+                })
+                .catch(err => console.error("Error fetching reviews:", err));
+        }
+
+        function renderAllReviews(data) {
+            const reviewsList = document.getElementById('reviewsList');
+            reviewsList.innerHTML = '';
+            totalReviews = 0;
+
+            if (data) {
+                const keys = Object.keys(data);
+                totalReviews = keys.length;
+                // แสดงผลเรียงจากใหม่สุดไปเก่าสุด
+                keys.reverse().forEach(key => {
+                    const item = data[key];
+                    renderReviewCard(key, item);
+                });
+            }
+            document.getElementById('reviewCount').innerText = totalReviews;
+        }
+
+        function renderReviewCard(key, item) {
+            let starsHtml = '★'.repeat(item.rating || 5);
+            let avatarHtml = item.profilePic 
+                ? `<img src="${item.profilePic}" class="review-user-avatar" alt="profile">`
+                : `<div class="review-user-avatar">🎀</div>`;
+            
+            let username = item.username || 'unknown 🍥';
+            let likes = item.likes || 0;
+
+            const reviewCardHtml = `
+                <div class="review-card-item" id="card-${key}" data-key="${key}">
+                    <button class="btn-delete-card" onclick="openAdminModal(this, '${key}')">✕</button>
+                    <div class="review-card-stars">${starsHtml}</div>
+                    <div class="review-card-job">
+                        ${item.jobType} 🎀🖤
+                    </div>
+                    <div class="review-card-impression">
+                        ${item.impression}
+                    </div>
+                    <hr class="review-card-divider">
+                    <div class="review-card-user">
+                        <div class="review-user-info">
+                            ${avatarHtml}
+                            <div class="review-user-meta">
+                                <span class="review-username">${username}</span>
+                                <span class="review-time">${item.time}</span>
+                            </div>
+                        </div>
+                        <div class="like-btn-container" onclick="likeReview('${key}', ${likes})">
+                            <span class="like-icon">❤️</span>
+                            <span class="like-count" id="like-count-${key}">${likes}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('reviewsList').insertAdjacentHTML('beforeend', reviewCardHtml);
+        }
+
+        // ฟังก์ชันกดหัวใจ (Real-time update)
+        function likeReview(key, currentLikes) {
+            const newLikes = currentLikes + 1;
+            
+            // อัปเดตใน UI ทันทีเพื่อความลื่นไหล
+            const countElement = document.getElementById(`like-count-${key}`);
+            if (countElement) {
+                countElement.innerText = newLikes;
+            }
+
+            // บันทึกจำนวนหัวใจใหม่ไปยัง Firebase
+            fetch(`${FIREBASE_URL}/${key}/likes.json`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newLikes)
+            })
+            .catch(err => {
+                console.error("Error updating likes:", err);
+                fetchReviews();
+            });
+        }
+
+        function setRating(rating) {
+            selectedRating = rating;
+            const stars = document.querySelectorAll('.star');
+            stars.forEach((star, index) => {
+                if (index < rating) star.classList.add('active');
+                else star.classList.remove('active');
+            });
+        }
+
+        function openModal() {
+            if (selectedRating === 0) {
+                alert('กรุณาเลือกดาวเพื่อให้คะแนนก่อนนะคะ ✨');
+                return;
+            }
+            document.getElementById('reviewModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('reviewModal').style.display = 'none';
+        }
+
+        function previewProfileImage(event) {
+            const input = event.target;
+            const preview = document.getElementById('profilePreview');
+            const placeholder = document.getElementById('profilePlaceholder');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedProfileSrc = e.target.result;
+                    preview.src = uploadedProfileSrc;
+                    preview.style.display = 'block';
+                    placeholder.style.display = 'none';
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function getCurrentTimeString() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            return `${hours}:${minutes} น.`;
+        }
+
+        function resetRatingBox() {
+            setRating(0);
+            document.getElementById('ratingBox').innerHTML = `
+                <span class="rating-title">เลือกคะแนนการบริการจาก 1 ถึง 5</span>
+                <div class="stars-container">
+                    <span class="star" onclick="setRating(1)">★</span>
+                    <span class="star" onclick="setRating(2)">★</span>
+                    <span class="star" onclick="setRating(3)">★</span>
+                    <span class="star" onclick="setRating(4)">★</span>
+                    <span class="star" onclick="setRating(5)">★</span>
+                </div>
+                <button class="btn-click-here" onclick="openModal()">click here</button>
+            `;
+        }
+
+        function submitFinalReview() {
+            const jobType = document.getElementById('jobTypeInput').value.trim() || 'สั่งทำชีตเช็คคิวงาน';
+            const impression = document.getElementById('impressionInput').value.trim() || 'แม่ค้าน่ารักมากเลยค้าบ ไอเลิฟแม่ค้า ><';
+            const username = document.getElementById('usernameInput').value.trim() || 'unknown 🍥';
+            const timeStr = getCurrentTimeString();
+
+            const reviewData = {
+                rating: selectedRating,
+                jobType: jobType,
+                impression: impression,
+                username: username,
+                profilePic: uploadedProfileSrc,
+                time: timeStr,
+                likes: 0,
+                timestamp: Date.now()
+            };
+
+            fetch(`${FIREBASE_URL}.json`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(reviewData)
+            })
+            .then(res => res.json())
+            .then(data => {
+                fetchReviews();
+            })
+            .catch(err => console.error("Error saving review:", err));
+
+            document.getElementById('ratingBox').innerHTML = `
+                <div class="thank-you-content">
+                    <div class="check-circle">✓</div>
+                    <div class="thank-you-text">ขอบคุณสำหรับคำรีวิวน้าคนน่ารัก</div>
+                </div>
+            `;
+
+            setTimeout(() => {
+                resetRatingBox();
+            }, 1500);
+
+            closeModal();
+            resetModalInputs();
+        }
+
+        function resetModalInputs() {
+            document.getElementById('jobTypeInput').value = '';
+            document.getElementById('impressionInput').value = '';
+            document.getElementById('usernameInput').value = '';
+            document.getElementById('profileFileInput').value = '';
+            document.getElementById('profilePreview').style.display = 'none';
+            document.getElementById('profilePlaceholder').style.display = 'block';
+            uploadedProfileSrc = "";
+        }
+
+        function openAdminModal(btnElement, key) {
+            targetCardToDelete = btnElement.closest('.review-card-item');
+            targetKeyToDelete = key;
+            document.getElementById('adminPasswordInput').value = '';
+            document.getElementById('adminDeleteModal').style.display = 'flex';
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminDeleteModal').style.display = 'none';
+            targetCardToDelete = null;
+            targetKeyToDelete = null;
+        }
+
+        function confirmDeleteReview() {
+            const pass = document.getElementById('adminPasswordInput').value;
+            if (pass === '160243') {
+                const key = targetKeyToDelete;
+                const cardElement = targetCardToDelete || document.getElementById(`card-${key}`);
+
+                // 1. ลบ / ซ่อนการ์ดออกจากหน้าจอทันทีเพื่อความรวดเร็ว
+                if (cardElement) {
+                    cardElement.remove();
+                }
+
+                // 2. อัปเดตตัวเลขจำนวนรีวิวใน UI ทันที
+                totalReviews = Math.max(0, totalReviews - 1);
+                document.getElementById('reviewCount').innerText = totalReviews;
+
+                // 3. ปิด Pop-up แอดมินทันที
+                closeAdminModal();
+
+                // 4. ส่งคำขอลบไปยัง Firebase เบื้องหลัง
+                if (key) {
+                    fetch(`${FIREBASE_URL}/${key}.json`, {
+                        method: 'DELETE'
+                    })
+                    .catch(err => console.error("Error deleting review from database:", err));
+                }
+            } else {
+                alert('รหัสผ่านไม่ถูกต้องค่ะ กรุณาลองใหม่อีกครั้ง');
+            }
+        }
+    </script>
+</body>
+</html>
